@@ -55,11 +55,6 @@ paths:
           description: Entity name.
           required: false
           type: string
-        - name: start
-          in: parameters
-          description: The id of the first retrieved entity.
-          required: false
-          type: integer
       tags:
         - Datasets
         - Entities
@@ -76,7 +71,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Entity'
-  /datasets/:datasetName:/entities/:entityName:/count
+  /datasets/:datasetName:/entities/:entityName:/count:
     get:
       summary: Number of records for a given entity.
       description: Count the number of records for an entity of the dataset.
@@ -127,7 +122,7 @@ definitions:
     type: object
     properties:
       data:
-        type: array
+        type: object
         description: The result of the query.
       metadata:
         type: object
