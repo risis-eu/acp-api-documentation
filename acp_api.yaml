@@ -13,16 +13,30 @@ basePath: /v1
 produces:
   - application/json
 paths:
-  /datasets/:datasetName:
+  /datasets:
+    get:
+      summary: List of available datasets.
+      description: |
+        List of available datasets and their urls.
+      tags:
+        - Datasets
+      responses:
+        200:
+          description: An array of object with datasets names and urls.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Dataset'
+  /datasets/{datasetName}:
     get:
       summary: Metadata of datasets.
       description: |
         The datasets metadata.
       parameters:
         - name: datasetName
-          in: query
+          in: path
           description: Dataset name.
-          required: false
+          required: true
           type: string
       tags:
         - Datasets
@@ -35,25 +49,47 @@ paths:
             items:
               $ref: '#/definitions/Metadata'
         default:
-          description: An array of available datasets
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /datasets/{datasetName}/entities:
+    get:
+      summary: List of available entities.
+      description: List of entities names and urls for the current dataset.
+      parameters:
+        - name: datasetName
+          in: path
+          description: Dataset name.
+          required: true
+          type: string
+      tags:
+        - Datasets
+        - Entities
+      responses:
+        200:
+          description: An array of available entities.
           schema:
             type: array
             items:
-              $ref: '#/definitions/Dataset'
-  /datasets/:datasetName:/entities/:entityName:
+              $ref: '#/definitions/Entity'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /datasets/{datasetName}/entities/{entityName}:
     get:
       summary: Request data for entity.
-      description: List of value for entity for the dataset.
+      description: Query on entity.
       parameters:
         - name: datasetName
-          in: query
+          in: path
           description: Dataset name.
           required: true
           type: string
         - name: entityName
-          in: query
+          in: path
           description: Entity name.
-          required: false
+          required: true
           type: string
       tags:
         - Datasets
@@ -66,23 +102,21 @@ paths:
             items:
               $ref: '#/definitions/Result'
         default:
-          description: An array of available entities.
+          description: Unexpected error
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Entity'
-  /datasets/:datasetName:/entities/:entityName:/count:
+            $ref: '#/definitions/Error'
+  /datasets/{datasetName}/entities/{entityName}/count:
     get:
       summary: Number of records for a given entity.
       description: Count the number of records for an entity of the dataset.
       parameters:
         - name: datasetName
-          in: query
+          in: path
           description: Dataset name.
           required: true
           type: string
         - name: entityName
-          in: query
+          in: path
           description: Entity name.
           required: true
           type: string
@@ -90,7 +124,7 @@ paths:
         - Entities
       responses:
         200:
-          description: An integer.
+          description: The number of records for the current entity.
           schema:
             type: integer
 definitions:
@@ -127,3 +161,13 @@ definitions:
       metadata:
         type: object
         description: Information about the query. To be completed...
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
