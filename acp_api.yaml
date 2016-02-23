@@ -1,0 +1,134 @@
+swagger: '2.0'
+info:
+  title: Access Control Point API
+  description: Interface where SMS access to RISIS datasets
+  version: "0.3"
+# the domain of the service
+host: api.risis.eu
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /datasets/:datasetName:
+    get:
+      summary: Metadata of datasets.
+      description: |
+        The datasets metadata.
+      parameters:
+        - name: datasetName
+          in: query
+          description: Dataset name.
+          required: false
+          type: string
+      tags:
+        - Datasets
+        - Entities
+      responses:
+        200:
+          description: An object with metadata about dataset.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Metadata'
+        default:
+          description: An array of available datasets
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Dataset'
+  /datasets/:datasetName:/entities/:entityName:
+    get:
+      summary: Request data for entity.
+      description: List of value for entity for the dataset.
+      parameters:
+        - name: datasetName
+          in: query
+          description: Dataset name.
+          required: true
+          type: string
+        - name: entityName
+          in: query
+          description: Entity name.
+          required: false
+          type: string
+        - name: start
+          in: parameters
+          description: The id of the first retrieved entity.
+          required: false
+          type: integer
+      tags:
+        - Datasets
+        - Entities
+      responses:
+        200:
+          description: An object with values, result of the query on entity.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: An array of available entities.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Entity'
+  /datasets/:datasetName:/entities/:entityName:/count
+    get:
+      summary: Number of records for a given entity.
+      description: Count the number of records for an entity of the dataset.
+      parameters:
+        - name: datasetName
+          in: query
+          description: Dataset name.
+          required: true
+          type: string
+        - name: entityName
+          in: query
+          description: Entity name.
+          required: true
+          type: string
+      tags:
+        - Entities
+      responses:
+        200:
+          description: An integer.
+          schema:
+            type: integer
+definitions:
+  Dataset:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique identifier representing a specific dataset.
+      path:
+        type: string
+        description: Url Path where the dataset is accessible.
+  Entity:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique identifier representing a specific entity.
+      path:
+        type: string
+        description: Url Path where the entity is accessible.
+  Metadata:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique identifier representing a specific dataset.
+  Result:
+    type: object
+    properties:
+      data:
+        type: array
+        description: The result of the query.
+      metadata:
+        type: object
+        description: Information about the query. To be completed...
