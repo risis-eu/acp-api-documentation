@@ -54,8 +54,8 @@ paths:
             $ref: '#/definitions/Error'
   /datasets/{datasetName}/entities:
     get:
-      summary: List of available entities.
-      description: List of entities names and urls for the current dataset.
+      summary: List of available entity types.
+      description: List of entitt types and urls for the current dataset.
       parameters:
         - name: datasetName
           in: path
@@ -76,9 +76,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /datasets/{datasetName}/entities/{entityName}:
+  /datasets/{datasetName}/entities/{entityType}:
     get:
-      summary: Request data for entity.
+      summary: Request data for a specific entity type.
       description: Query on entity.
       parameters:
         - name: datasetName
@@ -86,9 +86,9 @@ paths:
           description: Dataset name.
           required: true
           type: string
-        - name: entityName
+        - name: entityType
           in: path
-          description: Entity name.
+          description: Type of the entity.
           required: true
           type: string
         - name: offset
@@ -115,7 +115,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /datasets/{datasetName}/entities/{entityName}/count:
+  /datasets/{datasetName}/entities/{entityType}/count:
     get:
       summary: Number of records for a given entity.
       description: Count the number of records for an entity of the dataset.
@@ -125,16 +125,16 @@ paths:
           description: Dataset name.
           required: true
           type: string
-        - name: entityName
+        - name: entityType
           in: path
-          description: Entity name.
+          description: Type of the entity.
           required: true
           type: string
       tags:
         - Entities
       responses:
         200:
-          description: The number of records for the current entity.
+          description: The number of records for the current entity type.
           schema:
             type: integer
 definitions:
