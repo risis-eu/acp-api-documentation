@@ -55,7 +55,7 @@ paths:
   /datasets/{datasetName}/entities:
     get:
       summary: List of available entity types.
-      description: List of entitt types and urls for the current dataset.
+      description: List of entity types and urls for the current dataset.
       parameters:
         - name: datasetName
           in: path
@@ -137,6 +137,30 @@ paths:
           description: The number of records for the current entity type.
           schema:
             type: integer
+  /datasets/{datasetName}/relations:
+    get:
+      summary: List of available relations between entities.
+      description: List of relations together with the corresponding entity types.
+      parameters:
+        - name: datasetName
+          in: path
+          description: Dataset name.
+          required: true
+          type: string
+      tags:
+        - Datasets
+        - Relations
+      responses:
+        200:
+          description: An array of available relations.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Relation'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'           
 definitions:
   Dataset:
     type: object
@@ -156,6 +180,15 @@ definitions:
       path:
         type: string
         description: Url Path where the entity is accessible.
+  Relation:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique identifier representing a specific relation.
+      path:
+        type: string
+        description: Url Path where the relation is accessible.        
   Metadata:
     type: object
     properties:
