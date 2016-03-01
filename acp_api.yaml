@@ -106,11 +106,11 @@ paths:
         - Entities
       responses:
         200:
-          description: An object with values, result of the query on entity.
+          description: An array of entities with a specific given type.
           schema:
-            type: object
+            type: array
             items:
-              $ref: '#/definitions/Result'
+              $ref: '#/definitions/EntityType'
         default:
           description: Unexpected error
           schema:
@@ -265,6 +265,23 @@ definitions:
       metadata:
         type: object
         description: Information about the query. To be completed...
+  EntityType:
+    type: object
+    properties:
+      entityID:
+        type: string
+        description: id of the entity
+      properties:
+        $ref: '#/definitions/EntityProperties'
+  EntityProperties:
+    type: object
+    properties:
+      property:
+        type: string
+        description: name of the property
+      value:
+        type: string
+        description: value of the property   
   Error:
     type: object
     properties:
