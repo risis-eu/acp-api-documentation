@@ -91,6 +91,16 @@ paths:
           description: Entity name.
           required: true
           type: string
+        - name: offset
+          in: query
+          description: The id of the first record that will be send.
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: The maximum number of records that will be sens.
+          required: false
+          type: integer
       tags:
         - Datasets
         - Entities
