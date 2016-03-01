@@ -160,7 +160,68 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'           
+            $ref: '#/definitions/Error'  
+  /datasets/{datasetName}/relations/{relationName}/count:
+    get:
+      summary: Number of records for a given relation.
+      description: Count the number of records for a relation in the dataset.
+      parameters:
+        - name: datasetName
+          in: path
+          description: Dataset name.
+          required: true
+          type: string
+        - name: relationName
+          in: path
+          description: Name of the relation.
+          required: true
+          type: string
+      tags:
+        - Relations
+      responses:
+        200:
+          description: The number of records for the current relation.
+          schema:
+            type: integer            
+  /datasets/{datasetName}/relations/{relationName}:
+    get:
+      summary: Request data for a specific relation.
+      description: Query on relation.
+      parameters:
+        - name: datasetName
+          in: path
+          description: Dataset name.
+          required: true
+          type: string
+        - name: relationName
+          in: path
+          description: Name of the relation.
+          required: true
+          type: string
+        - name: offset
+          in: query
+          description: The id of the first record that will be send.
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: The maximum number of records that will be sens.
+          required: false
+          type: integer
+      tags:
+        - Datasets
+        - Relations
+      responses:
+        200:
+          description: An object with values, result of the query on entity.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
   Dataset:
     type: object
