@@ -213,11 +213,11 @@ paths:
         - Relations
       responses:
         200:
-          description: An object with values, result of the query on entity.
+          description: An array containing all relations with a specific name.
           schema:
-            type: object
+            type: array
             items:
-              $ref: '#/definitions/Result'
+              $ref: '#/definitions/RelationName'
         default:
           description: Unexpected error
           schema:
@@ -256,15 +256,6 @@ definitions:
       name:
         type: string
         description: Unique identifier representing a specific dataset.
-  Result:
-    type: object
-    properties:
-      data:
-        type: object
-        description: The result of the query.
-      metadata:
-        type: object
-        description: Information about the query. To be completed...
   EntityType:
     type: object
     properties:
@@ -282,6 +273,23 @@ definitions:
       value:
         type: string
         description: value of the property   
+  RelationName:
+    type: object
+    properties:
+      relationName:
+        type: string
+        description: name of the relation
+      properties:
+        $ref: '#/definitions/RelationProperties'
+  RelationProperties:
+    type: object
+    properties:
+      source:
+        type: string
+        description: id of the source entity
+      target:
+        type: string
+        description: id of the target entity
   Error:
     type: object
     properties:
