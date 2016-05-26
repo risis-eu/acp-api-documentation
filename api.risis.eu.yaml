@@ -1,0 +1,38 @@
+swagger: '2.0'
+info:
+  title: Datasets List API
+  description: Interface where SMS access to RISIS Dataset List
+  version: "0.1"
+# the domain of the service
+host: api.risis.eu
+# array of all schemes that your API supports
+schemes:
+  - http
+  - https
+produces:
+  - application/json
+paths:
+  /datasets:
+    get:
+      summary: List of available datasets.
+      description: |
+        List of available datasets and their urls.
+      tags:
+        - Datasets
+      responses:
+        200:
+          description: An array of object with datasets names and urls.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Dataset'
+definitions:
+  Dataset:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique identifier representing a specific dataset.
+      path:
+        type: string
+        description: Url Path where the dataset is accessible.
