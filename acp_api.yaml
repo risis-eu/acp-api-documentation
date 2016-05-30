@@ -17,12 +17,6 @@ paths:
       summary: Metadata of datasets.
       description: |
         The datasets metadata.
-      parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
       tags:
         - Datasets
         - Entities
@@ -41,12 +35,6 @@ paths:
     get:
       summary: List of available entity types.
       description: List of entity types and urls for the current dataset.
-      parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
       tags:
         - Datasets
         - Entities
@@ -66,11 +54,6 @@ paths:
       summary: Request data for a specific entity type.
       description: Query on entity.
       parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
         - name: entityType
           in: path
           description: Type of the entity.
@@ -105,11 +88,6 @@ paths:
       summary: Number of records for a given entity.
       description: Count the number of records for an entity of the dataset.
       parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
         - name: entityType
           in: path
           description: Type of the entity.
@@ -126,12 +104,6 @@ paths:
     get:
       summary: List of available relations between entities.
       description: List of relations together with the corresponding entity types.
-      parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
       tags:
         - Datasets
         - Relations
@@ -151,11 +123,6 @@ paths:
       summary: Number of records for a given relation.
       description: Count the number of records for a relation in the dataset.
       parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
         - name: relationName
           in: path
           description: Name of the relation.
@@ -173,11 +140,6 @@ paths:
       summary: Request data for a specific relation.
       description: Query on relation.
       parameters:
-        - name: datasetName
-          in: path
-          description: Dataset name.
-          required: true
-          type: string
         - name: relationName
           in: path
           description: Name of the relation.
