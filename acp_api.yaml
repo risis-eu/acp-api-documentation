@@ -2,23 +2,30 @@ swagger: '2.0'
 info:
   title: Access Control Point API
   description: Interface where SMS access to RISIS datasets
-  version: "0.5"
+  version: "1.0"
+# will be prefixed to all paths
+basePath: /v1.0
 # the domain of the service
-host: api.risis.eu
+host: nano.api.risis.eu
 # array of all schemes that your API supports
 schemes:
   - http
+  - https
 produces:
   - application/json
 paths:
   /metadata:
     get:
       summary: Metadata of datasets.
-      description: |
-        The datasets metadata.
+      description: The datasets metadata.
+      parameters:
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Datasets
-        - Entities
       responses:
         200:
           description: An object with metadata about dataset.
@@ -34,6 +41,12 @@ paths:
     get:
       summary: List of available entity types.
       description: List of entity types and urls for the current dataset.
+      parameters:
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Datasets
         - Entities
@@ -63,6 +76,11 @@ paths:
           description: The id.
           required: true
           type: integer
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Datasets
         - Entities
@@ -95,6 +113,11 @@ paths:
           description: The maximum number of records that will be sens.
           required: false
           type: integer
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Datasets
         - Entities
@@ -119,6 +142,11 @@ paths:
           description: Type of the entity.
           required: true
           type: string
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Entities
       responses:
@@ -126,10 +154,20 @@ paths:
           description: The number of records for the current entity type.
           schema:
             type: integer
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /relations:
     get:
       summary: List of available relations between entities.
       description: List of relations together with the corresponding entity types.
+      parameters:
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Datasets
         - Relations
@@ -152,6 +190,11 @@ paths:
         - name: relationName
           in: path
           description: Name of the relation.
+          required: true
+          type: string
+        - name: accessToken
+          in: query
+          description: Access Token
           required: true
           type: string
       tags:
@@ -181,6 +224,11 @@ paths:
           description: The maximum number of records that will be sens.
           required: false
           type: integer
+        - name: accessToken
+          in: query
+          description: Access Token
+          required: true
+          type: string
       tags:
         - Datasets
         - Relations
