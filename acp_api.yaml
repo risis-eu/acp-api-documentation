@@ -2,12 +2,11 @@ swagger: '2.0'
 info:
   title: Access Control Point API
   description: Interface where SMS access to RISIS datasets
-  version: "0.4"
+  version: "0.5"
 # the domain of the service
 host: api.risis.eu
 # array of all schemes that your API supports
 schemes:
-  - https
   - http
 produces:
   - application/json
@@ -31,7 +30,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /entities:
+  /entityTypes:
     get:
       summary: List of available entity types.
       description: List of entity types and urls for the current dataset.
@@ -44,7 +43,34 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Entity'
+              $ref: '#/definitions/EntityType'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /entity/{entityType}/{id}:
+    get:
+      summary: Request data for a specific entity type.
+      description: Query on entity.
+      parameters:
+        - name: entityType
+          in: path
+          description: Type of the entity.
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: The id.
+          required: true
+          type: integer
+      tags:
+        - Datasets
+        - Entities
+      responses:
+        200:
+          description: An object of entity properties for a given entity id.
+          schema:
+            $ref: '#/definitions/Entity'
         default:
           description: Unexpected error
           schema:
@@ -78,7 +104,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/EntityType'
+              $ref: '#/definitions/Entity'
         default:
           description: Unexpected error
           schema:
@@ -170,7 +196,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
-  Entity:
+  EntityType:
     type: object
     properties:
       name:
@@ -194,7 +220,7 @@ definitions:
       name:
         type: string
         description: Unique identifier representing a specific dataset.
-  EntityType:
+  Entity:
     type: object
     properties:
       entityID:
