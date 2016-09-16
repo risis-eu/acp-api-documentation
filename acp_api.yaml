@@ -120,11 +120,9 @@ paths:
         - Entities
       responses:
         200:
-          description: An array of entities with a specific given type.
+          description: An object with multiple entities of a specific given type.
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Entity'
+            $ref: '#/definitions/Entities'
         default:
           description: Unexpected error
           schema:
@@ -248,6 +246,9 @@ definitions:
       path:
         type: string
         description: Url Path where the entity is accessible.
+      description:
+        type: string
+        description: A description of the entity type.
   Relation:
     type: object
     properties:
@@ -266,12 +267,54 @@ definitions:
   Entity:
     type: object
     properties:
-      entityID:
+      dataset:
         type: string
-        description: id of the entity
-      properties:
+        description: Name of the dataset.
+      version:
+        type: string
+        description: Version of the dataset from which the entity is extracted.
+      entity_type:
+        type: string
+        description: Type of the entity. Must start with a capital letter.
+      property_description:
+        type: array
+        description: List of properties descriptions.
+        items:
+          $ref: '#/definitions/PropertyDescription'
+      instance:
         $ref: '#/definitions/EntityProperties'
+  Entities:
+    type: object
+    properties:
+      dataset:
+        type: string
+        description: Name of the dataset.
+      version:
+        type: string
+        description: Version of the dataset from which the entity is extracted.
+      entity_type:
+        type: string
+        description: Type of the entity. Must start with a capital letter.
+      property_description:
+        type: array
+        description: List of properties descriptions.
+        items:
+          $ref: '#/definitions/PropertyDescription'
+      instances:
+        type: array
+        items:
+          $ref: '#/definitions/EntityProperties'
   EntityProperties:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of the entity
+      property_values:
+        type: array
+        items:
+          $ref: '#/definitions/EntityValues'
+  EntityValues:
     type: object
     properties:
       property:
@@ -279,7 +322,16 @@ definitions:
         description: name of the property
       value:
         type: string
-        description: value of the property   
+        description: value of the property
+  PropertyDescription:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the property.
+      description:
+        type: string
+        description: Description of the property.
   RelationName:
     type: object
     properties:
