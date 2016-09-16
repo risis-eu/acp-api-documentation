@@ -261,9 +261,24 @@ definitions:
   Metadata:
     type: object
     properties:
-      name:
+      title:
         type: string
-        description: Unique identifier representing a specific dataset.
+        description: The name of the dataset.
+      description:
+        type: string
+        description: A description of the dataset.
+      creationDate:
+        type: string
+        description: The creation date of the dataset.
+      contact_person:
+        type: string
+        description: The name of the person in charge of the dataset who can provide more details on it.
+      contact_email:
+        type: string
+        description: The e-mail of the person in charge of the dataset who can provide more details on it.
+      contact_organisation:
+        type: string
+        description: The organisation of the contact person.
   Entity:
     type: object
     properties:
