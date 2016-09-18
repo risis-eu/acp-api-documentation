@@ -328,6 +328,9 @@ definitions:
       description:
         type: string
         description: Description of the property.
+      hasEntityType:
+        type: string
+        description: If the property corresponds to another entity, it specifies the entity type. Must start with a capital letter.
   RelationName:
     type: object
     properties:
