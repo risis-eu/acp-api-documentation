@@ -10,7 +10,6 @@ host: nano.api.risis.eu
 # array of all schemes that your API supports
 schemes:
   - http
-  - https
 produces:
   - application/json
 paths:
@@ -74,7 +73,7 @@ paths:
           in: path
           description: The id.
           required: true
-          type: integer
+          type: string
         - name: accessToken
           in: query
           description: Access Token
