@@ -29,9 +29,7 @@ paths:
         200:
           description: An object with metadata about dataset.
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/Metadata'
+            $ref: '#/definitions/Metadata'
         default:
           description: Unexpected error
           schema:
