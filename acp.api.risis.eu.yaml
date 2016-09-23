@@ -83,7 +83,7 @@ paths:
         200:
           description: An object of entity properties for a given entity id.
           schema:
-            $ref: '#/definitions/Entities'
+            $ref: '#/definitions/Entity'
         default:
           description: Unexpected error
           schema:
@@ -105,7 +105,7 @@ paths:
           type: integer
         - name: limit
           in: query
-          description: The maximum number of records that will be sens.
+          description: The maximum number of records that will be sent.
           required: false
           type: integer
         - name: accessToken
@@ -143,9 +143,9 @@ paths:
         - Entities
       responses:
         200:
-          description: The number of records for the current entity type.
+          description: An object with the number of records and the maximum number of records for the current entity type.
           schema:
-            type: integer
+            $ref: '#/definitions/CountDetails'
         default:
           description: Unexpected error
           schema:
@@ -184,6 +184,27 @@ definitions:
       contact_organisation:
         type: string
         description: The organisation of the contact person.
+  Entity:
+    type: object
+    properties:
+      dataset:
+        type: string
+        description: Name of the dataset.
+      version:
+        type: string
+        description: Version of the dataset from which the entity is extracted.
+      entity_type:
+        type: string
+        description: Type of the entity. Must start with a capital letter.
+      property_description:
+        type: array
+        description: List of properties descriptions.
+        items:
+          $ref: '#/definitions/PropertyDescription'
+      instances:
+        type: array
+        items:
+          $ref: '#/definitions/EntityProperties'
   Entities:
     type: object
     properties:
@@ -196,6 +217,12 @@ definitions:
       entity_type:
         type: string
         description: Type of the entity. Must start with a capital letter.
+      offset: 
+        type: integer
+        description: The id of the first record that has been sent.
+      limit:
+        type: integer
+        description: The maximum number of records that has been sent.
       property_description:
         type: array
         description: List of properties descriptions.
@@ -246,3 +273,12 @@ definitions:
         type: string
       fields:
         type: string
+  CountDetails:
+    type: object
+    properties:
+      totalEntityCount:
+        type: integer
+        description: The number of records for the current entity type.
+      maxEntitiesPerPage:
+        type: integer
+        description: The maximum number of record per page for the current entity type.
