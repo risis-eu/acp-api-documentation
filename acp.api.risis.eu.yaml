@@ -57,7 +57,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /entity/{entityType}/{id}:
+  /entities/{entityType}/{id}:
     get:
       summary: Request data for a specific entity type.
       description: Query on entity.
@@ -150,89 +150,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /relations:
-    get:
-      summary: List of available relations between entities.
-      description: List of relations together with the corresponding entity types.
-      parameters:
-        - name: accessToken
-          in: query
-          description: Access Token
-          required: true
-          type: string
-      tags:
-        - Relations
-      responses:
-        200:
-          description: An array of available relations.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Relation'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'  
-  /relations/{relationName}/count:
-    get:
-      summary: Number of records for a given relation.
-      description: Count the number of records for a relation in the dataset.
-      parameters:
-        - name: relationName
-          in: path
-          description: Name of the relation.
-          required: true
-          type: string
-        - name: accessToken
-          in: query
-          description: Access Token
-          required: true
-          type: string
-      tags:
-        - Relations
-      responses:
-        200:
-          description: The number of records for the current relation.
-          schema:
-            type: integer            
-  /relations/{relationName}:
-    get:
-      summary: Request data for a specific relation.
-      description: Query on relation.
-      parameters:
-        - name: relationName
-          in: path
-          description: Name of the relation.
-          required: true
-          type: string
-        - name: offset
-          in: query
-          description: The id of the first record that will be send.
-          required: false
-          type: integer
-        - name: limit
-          in: query
-          description: The maximum number of records that will be sens.
-          required: false
-          type: integer
-        - name: accessToken
-          in: query
-          description: Access Token
-          required: true
-          type: string
-      tags:
-        - Relations
-      responses:
-        200:
-          description: An array containing all relations with a specific name.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/RelationName'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
 definitions:
   EntityType:
     type: object
@@ -246,15 +163,6 @@ definitions:
       description:
         type: string
         description: A description of the entity type.
-  Relation:
-    type: object
-    properties:
-      name:
-        type: string
-        description: Unique identifier representing a specific relation.
-      path:
-        type: string
-        description: Url Path where the relation is accessible.        
   Metadata:
     type: object
     properties:
@@ -328,23 +236,6 @@ definitions:
       hasEntityType:
         type: string
         description: If the property corresponds to another entity, it specifies the entity type. Must start with a capital letter.
-  RelationName:
-    type: object
-    properties:
-      relationName:
-        type: string
-        description: name of the relation
-      properties:
-        $ref: '#/definitions/RelationProperties'
-  RelationProperties:
-    type: object
-    properties:
-      source:
-        type: string
-        description: id of the source entity
-      target:
-        type: string
-        description: id of the target entity
   Error:
     type: object
     properties:
