@@ -239,10 +239,10 @@ definitions:
   CountDetails:
     type: object
     properties:
-      totalEntityCount:
+      total:
         type: integer
         description: The number of records for the current entity type.
-      maxEntitiesPerPage:
+      max_per_page:
         type: integer
         description: The maximum number of record per page for the current entity type.
   Error:
