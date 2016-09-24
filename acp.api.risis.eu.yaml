@@ -196,6 +196,12 @@ definitions:
       entity_type:
         type: string
         description: Type of the entity. Must start with a capital letter.
+      offset:
+        type: integer
+        description: The id of the first record that has been sent.
+      limit:
+        type: integer
+        description: The maximum number of records that has been sent.
       property_description:
         type: array
         description: List of properties descriptions.
