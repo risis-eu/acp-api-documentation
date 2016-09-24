@@ -105,7 +105,7 @@ paths:
           type: integer
         - name: limit
           in: query
-          description: The maximum number of records that will be sens.
+          description: The maximum number of records that will be sent.
           required: false
           type: integer
         - name: accessToken
@@ -143,9 +143,9 @@ paths:
         - Entities
       responses:
         200:
-          description: The number of records for the current entity type.
+          description: An object with count information for the current entity type.
           schema:
-            type: integer
+            $ref: '#/definitions/CountDetails'
         default:
           description: Unexpected error
           schema:
@@ -236,6 +236,15 @@ definitions:
       hasEntityType:
         type: string
         description: If the property corresponds to another entity, it specifies the entity type. Must start with a capital letter.
+  CountDetails:
+    type: object
+    properties:
+      totalEntityCount:
+        type: integer
+        description: The number of records for the current entity type.
+      maxEntitiesPerPage:
+        type: integer
+        description: The maximum number of record per page for the current entity type.
   Error:
     type: object
     properties:
