@@ -59,7 +59,7 @@ paths:
             $ref: '#/definitions/Error'
   /entities/{entityType}/{id}:
     get:
-      summary: Request data for a specific entity type.
+      summary: Request data for a specific entity type and id.
       description: Query on entity.
       parameters:
         - name: entityType
