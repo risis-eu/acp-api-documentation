@@ -6,7 +6,7 @@ info:
 # will be prefixed to all paths
 basePath: /v1.0
 # the domain of the service
-host: nano.api.risis.eu
+host: demo.api.risis.eu
 # array of all schemes that your API supports
 schemes:
   - http
@@ -21,7 +21,7 @@ paths:
         - name: accessToken
           in: query
           description: Access Token
-          required: true
+          required: false
           type: string
       tags:
         - Datasets
@@ -42,7 +42,7 @@ paths:
         - name: accessToken
           in: query
           description: Access Token
-          required: true
+          required: false
           type: string
       tags:
         - Entities
@@ -75,7 +75,7 @@ paths:
         - name: accessToken
           in: query
           description: Access Token
-          required: true
+          required: false
           type: string
       tags:
         - Entities
@@ -111,7 +111,7 @@ paths:
         - name: accessToken
           in: query
           description: Access Token
-          required: true
+          required: false
           type: string
       tags:
         - Entities
@@ -137,7 +137,7 @@ paths:
         - name: accessToken
           in: query
           description: Access Token
-          required: true
+          required: false
           type: string
       tags:
         - Entities
