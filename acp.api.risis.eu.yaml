@@ -2,9 +2,9 @@ swagger: '2.0'
 info:
   title: Access Control Point API
   description: Interface where SMS access to RISIS datasets
-  version: "1.0"
+  version: "1.1"
 # will be prefixed to all paths
-basePath: /v1.0
+basePath: /v1.1
 # the domain of the service
 host: demo.api.risis.eu
 # array of all schemes that your API supports
@@ -124,32 +124,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /entities/{entityType}/count:
-    get:
-      summary: Number of records for a given entity.
-      description: Count the number of records for an entity of the dataset.
-      parameters:
-        - name: entityType
-          in: path
-          description: Type of the entity.
-          required: true
-          type: string
-        - name: accessToken
-          in: query
-          description: Access Token
-          required: false
-          type: string
-      tags:
-        - Entities
-      responses:
-        200:
-          description: An object with count information for the current entity type.
-          schema:
-            $ref: '#/definitions/CountDetails'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
 definitions:
   EntityType:
     type: object
@@ -163,6 +137,12 @@ definitions:
       description:
         type: string
         description: A description of the entity type.
+      total:
+        type: integer
+        description: The number of records for the current entity type.
+      max_per_page:
+        type: integer
+        description: The maximum number of record per page for the current entity type.
   Metadata:
     type: object
     properties:
@@ -242,15 +222,6 @@ definitions:
       hasEntityType:
         type: string
         description: If the property corresponds to another entity, it specifies the entity type. Must start with a capital letter.
-  CountDetails:
-    type: object
-    properties:
-      total:
-        type: integer
-        description: The number of records for the current entity type.
-      max_per_page:
-        type: integer
-        description: The maximum number of record per page for the current entity type.
   Error:
     type: object
     properties:
