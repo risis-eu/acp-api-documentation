@@ -2,9 +2,9 @@ swagger: '2.0'
 info:
   title: Access Control Point API
   description: Interface where SMS access to RISIS datasets
-  version: "1.1"
+  version: "1.2"
 # will be prefixed to all paths
-basePath: /v1.1
+basePath: /v1.2
 # the domain of the service
 host: demo.api.risis.eu
 # array of all schemes that your API supports
@@ -201,6 +201,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/EntityValues'
+        description: Properties and their value. The id should also be added as a property.
   EntityValues:
     type: object
     properties:
